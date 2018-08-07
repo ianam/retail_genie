@@ -10,10 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_07_172711) do
+ActiveRecord::Schema.define(version: 2018_08_07_174902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "industries", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "regions", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "subindustries", force: :cascade do |t|
+    t.string "name"
+    t.bigint "industry_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["industry_id"], name: "index_subindustries_on_industry_id"
+  end
+
+  create_table "subregions", force: :cascade do |t|
+    t.string "name"
+    t.bigint "region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["region_id"], name: "index_subregions_on_region_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
@@ -26,4 +54,6 @@ ActiveRecord::Schema.define(version: 2018_08_07_172711) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "subindustries", "industries"
+  add_foreign_key "subregions", "regions"
 end
