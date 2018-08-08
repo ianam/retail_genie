@@ -43,7 +43,7 @@ gem 'chosen-rails'
 gem 'active_model_serializers'
 gem 'simple_form'
 gem 'friendly_id'
-
+gem 'd3-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

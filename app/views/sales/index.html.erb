@@ -1,1 +1,18 @@
 <h1>Sales Index</h1>
+
+<h2>Sample Chart</h2>
+<h3>Car Sales in Manitoba in 2017 (per month)</h3>
+
+<div class="chart" data-sales='<%= raw @sale.to_json %>'>
+
+</div>
+
+<br> 
+
+<ul>
+    <% @sale.each do |key, value| %>
+        <li>
+            <%= key %>, <%= value %>
+        </li>
+    <% end %>
+</ul>
