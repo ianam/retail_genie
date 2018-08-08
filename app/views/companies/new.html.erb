@@ -1,0 +1,17 @@
+<h1>Add a Company:</h1>
+
+<%= simple_form_for(@company) do |f| %>
+
+<%= f.input :name, label: 'Company Name' %>
+<%= f.input :region_id, collection: @region, input_html: { class: 'chosen-select', id: 'region' }  %>
+<%= f.input :subregion_id, collection: @subregion, input_html: { class: 'chosen-select', id: 'subregion' }  %>
+
+<h2>Select your Industry:</h2>
+
+<%= f.input :industry_id, label: 'Industry', collection: @industry, input_html: { class: 'chosen-select', id: 'industry' } %>
+
+<%= f.input :subindustry_id, label: 'Sub-Industry (if applicable)', collection: @subindustry, wrapper_html: { class: 'chosen-select', id: 'subindustry hidden' } %>
+
+<%= f.submit class: 'btn btn-primary'%>
+
+<% end %>
