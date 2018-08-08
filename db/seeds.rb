@@ -4,6 +4,7 @@ Subregion.delete_all
 Subindustry.delete_all
 Region.delete_all
 Industry.delete_all
+Sale.delete_all
 User.delete_all
 
 10.times do
@@ -23,15 +24,16 @@ users = User.all
 Industry.create([
     { id: 1, name: 'Motor Vehicle & Parts Dealer' },
     { id: 2, name: 'Furniture & Home Furnishings' },
-    { id: 3, name: 'Electronics & Applicance Store'},
-    { id: 4, name: 'Building Material & Garden Equipment Dealer'},
-    { id: 5, name: 'Food & Beverage Store'},
-    { id: 6, name: 'Health & Personal Care Store'},
-    { id: 7, name: 'Gasoline Station'},
-    { id: 8, name: 'Clothing & Accessories Store'},
-    { id: 9, name: 'Sport, Hobby, Book & Music Store'},
-    { id: 10, name: 'General Merchandise Store'},
-    { id: 11, name: 'Other Retailer'}
+    { id: 3, name: 'Electronics & Applicance Store' },
+    { id: 4, name: 'Building Material & Garden Equipment Dealer' },
+    { id: 5, name: 'Food & Beverage Store' },
+    { id: 6, name: 'Health & Personal Care Store' },
+    { id: 7, name: 'Gasoline Station' },
+    { id: 8, name: 'Clothing & Accessories Store' },
+    { id: 9, name: 'Sport, Hobby, Book & Music Store' },
+    { id: 10, name: 'General Merchandise Store' },
+    { id: 11, name: 'Other Retailer' },
+    { id: 12, name: 'All Retailers' }
 ])
 
 Subindustry.create([
@@ -63,7 +65,8 @@ Region.create([
     { id: 10, name: 'Prince Edward Island' },
     { id: 11, name: 'Quebec' },
     { id: 12, name: 'Saskatchewan' },
-    { id: 13, name: 'Yukon' }
+    { id: 13, name: 'Yukon' },
+    { id: 14, name: 'Canada' }
 ])
 
 Subregion.create([
@@ -72,11 +75,28 @@ Subregion.create([
     { id: 3, region_id: 11, name: 'Montreal' }
 ])
 
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'sales_data.csv'))
+csv = CSV.parse(csv_text, headers: true, encoding: 'ISO-8859-1')
+
+csv.each do |row|
+    s = Sale.new
+    s.year = row['year']
+    s.month = row['month']
+    s.value = row['value']
+    s.region_id = row['region_id']
+    s.subregion_id = row['subregion_id']
+    s.industry_id = row['industry_id']
+    s.subindustry_id = row['subindustry_id']
+    s.save
+end
+
 industries = Industry.all
 subindustries = Subindustry.all
 regions = Region.all
 subregions = Subregion.all
+sales = Sale.all
 
 puts Cowsay.say("Created #{users.count} users", :tux)
 puts Cowsay.say("Created #{industries.count} industries & #{subindustries.count} subindustries", :cow)
 puts Cowsay.say("Created #{regions.count} regions & #{subregions.count} subregions", :frogs)
+puts Cowsay.say("Woah! Loaded #{sales.count} sales", :cheese)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_07_182922) do
+ActiveRecord::Schema.define(version: 2018_08_08_025009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,22 @@ ActiveRecord::Schema.define(version: 2018_08_07_182922) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "sales", force: :cascade do |t|
+    t.integer "value"
+    t.string "month"
+    t.integer "year"
+    t.bigint "industry_id"
+    t.bigint "subindustry_id"
+    t.bigint "region_id"
+    t.bigint "subregion_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["industry_id"], name: "index_sales_on_industry_id"
+    t.index ["region_id"], name: "index_sales_on_region_id"
+    t.index ["subindustry_id"], name: "index_sales_on_subindustry_id"
+    t.index ["subregion_id"], name: "index_sales_on_subregion_id"
   end
 
   create_table "subindustries", force: :cascade do |t|
@@ -75,6 +91,10 @@ ActiveRecord::Schema.define(version: 2018_08_07_182922) do
   add_foreign_key "companies", "subindustries"
   add_foreign_key "companies", "subregions"
   add_foreign_key "companies", "users"
+  add_foreign_key "sales", "industries"
+  add_foreign_key "sales", "regions"
+  add_foreign_key "sales", "subindustries"
+  add_foreign_key "sales", "subregions"
   add_foreign_key "subindustries", "industries"
   add_foreign_key "subregions", "regions"
 end
