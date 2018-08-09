@@ -1,6 +1,11 @@
 <h1>Add a Company:</h1>
 
 <%= simple_form_for(@company) do |f| %>
+    <% if @company.errors.present? %>
+        <p> 
+            <%= @company.errors.full_messages.join(', ') %>
+        </p>
+    <% end %>
 
     <%= f.input :name, label: 'Company Name' %>
 

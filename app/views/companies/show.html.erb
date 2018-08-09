@@ -1,0 +1,34 @@
+<h1><%= @company.name %></h1>
+
+<h2><%= @company.industry.name %></h2>
+
+<% if @company.subindustry %>
+    <h3><%= @company.subindustry.name %></h3>
+<% end %>
+
+<hr>
+
+<h4>
+<% if @company.subregion %>
+    <%= @company.subregion.name%>,
+<% end %>
+<%= @company.region.name %>
+</h4>
+
+<h5><%= @company.industry.name %> Overview for 2017:</h5>
+<div class="row">
+    <div class="chart" data-sales='<%= raw @sale.to_json %>'></div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>Month</th>
+        <th>Revenue ($)</th>
+    </tr>
+    <% @sale.each do |key, value| %>
+        <tr>
+            <td><%= key %></td>
+            <td><%= value %></td>
+        </tr>
+    <% end %>
+</table>
