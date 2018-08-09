@@ -1,0 +1,16 @@
+<h1>Company Index</h1>
+
+<ul>
+    <% @companies.each do |company| %>
+        <li>
+            <%= link_to(
+                company.name, 
+                company_path(company.id),
+                ) %>
+            <br>
+            <small>
+                Posted <%= time_ago_in_words(company.created_at) %> ago
+            </small>
+        </li>
+    <% end %>
+</ul>

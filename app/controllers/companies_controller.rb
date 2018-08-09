@@ -11,8 +11,6 @@ class CompaniesController < ApplicationController
     def create
         @company = Company.new company_params
         @company.user = current_user
-        
-        # render json: @company
 
         if @company.save
             redirect_to company_path(@company.id)
@@ -25,6 +23,10 @@ class CompaniesController < ApplicationController
         @company = Company.find params[:id]
         # Populate sales data based on selected year
         @sale = Company.search(@company, 2017)
+    end
+
+    def index
+        @companies = Company.order(created_at: :desc)
     end
 
     private

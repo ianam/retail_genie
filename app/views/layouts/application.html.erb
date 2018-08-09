@@ -25,8 +25,24 @@
               <a class="nav-link" href="/companies/new">New Company</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="/companies">Company Index</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="/sales">Sales Data</a>
             </li>
+            <% if current_user.present? %>
+              <span class="mt-2">Welcome back, <%= current_user.first_name %>!</span>
+              <li class="nav-item">
+                <%= link_to 'Sign Out', session_path, method: :delete, class: 'nav-link' %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <a class="nav-link" href="/session/new">Sign In</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/users/new">Sign Up</a>
+              </li>
+            <% end %>
           </ul>
         </div>
       </nav>

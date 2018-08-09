@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             subregion.firstChild.innerHTML = "Are you located in Toronto?"
             radio_buttons.forEach((node, i) => {
                 if (i === 1) { // Toronto
-                    node.innerHTML = '<input class="form-check-input radio_buttons optional" type="radio" value="1" name="company[subregion_id]" id="company_subregion_id_1"><label class="collection_radio_buttons" for="company_subregion_id_1">Yes</label>'
+                    node.innerHTML = '<input class="form-check-input radio_buttons optional" type="radio" value="2" name="company[subregion_id]" id="company_subregion_id_1"><label class="collection_radio_buttons" for="company_subregion_id_1">Yes</label>'
                 } else {
                     node.innerHTML = "";
                 }
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             subregion.firstChild.innerHTML = "Are you located in Montreal?"
             radio_buttons.forEach((node, i) => {
                 if (i === 2) { // Montreal
-                    node.innerHTML = '<input class="form-check-input radio_buttons optional" type="radio" value="1" name="company[subregion_id]" id="company_subregion_id_1"><label class="collection_radio_buttons" for="company_subregion_id_1">Yes</label>'
+                    node.innerHTML = '<input class="form-check-input radio_buttons optional" type="radio" value="3" name="company[subregion_id]" id="company_subregion_id_1"><label class="collection_radio_buttons" for="company_subregion_id_1">Yes</label>'
                 } else {
                     node.innerHTML = "";
                 }
