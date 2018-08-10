@@ -1,7 +1,102 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'csv'
+
+Subregion.delete_all
+Subindustry.delete_all
+Region.delete_all
+Industry.delete_all
+Sale.delete_all
+User.delete_all
+
+10.times do
+    first_name = Faker::Name.first_name
+    last_name = Faker::Name.last_name
+
+    User.create(
+        first_name: first_name,
+        last_name: last_name,
+        email: "#{first_name.downcase}.#{last_name.downcase}@example.com",
+        password: "password"
+    )
+end
+
+users = User.all
+
+Industry.create([
+    { id: 1, name: 'Motor Vehicle & Parts Dealer' },
+    { id: 2, name: 'Furniture & Home Furnishings' },
+    { id: 3, name: 'Electronics & Applicance Store' },
+    { id: 4, name: 'Building Material & Garden Equipment Dealer' },
+    { id: 5, name: 'Food & Beverage Store' },
+    { id: 6, name: 'Health & Personal Care Store' },
+    { id: 7, name: 'Gasoline Station' },
+    { id: 8, name: 'Clothing & Accessories Store' },
+    { id: 9, name: 'Sport, Hobby, Book & Music Store' },
+    { id: 10, name: 'General Merchandise Store' },
+    { id: 11, name: 'Other Retailer' },
+    { id: 12, name: 'All Retailers' }
+])
+
+Subindustry.create([
+    { id: 1, industry_id: 1, name: 'Automobile Dealer'},
+    { id: 2, industry_id: 1, name: 'Other Motor Vehicle Dealer'},
+    { id: 3, industry_id: 1, name: 'Auto Parts & Accessories or Tire Store'},
+    { id: 4, industry_id: 2, name: 'Furniture Store'},
+    { id: 5, industry_id: 2, name: 'Home Furnishings Store'},
+    { id: 6, industry_id: 5, name: 'Grocery Store'},
+    { id: 7, industry_id: 5, name: 'Specialty Food Store'},
+    { id: 8, industry_id: 5, name: 'Beer, Wine & Liquor Store'},
+    { id: 9, industry_id: 8, name: 'Clothing Store'},
+    { id: 10, industry_id: 8, name: 'Shoe Store'},
+    { id: 11, industry_id: 8, name: 'Jewellery, Luggage or Leather Goods'},
+    { id: 12, industry_id: 10, name: 'Department Store'},
+    { id: 13, industry_id: 10, name: 'Other General Merchandise Store'}
+])
+
+Region.create([
+    { id: 1, name: 'Alberta' },
+    { id: 2, name: 'British Columbia' },
+    { id: 3, name: 'Manitoba' },
+    { id: 4, name: 'New Brunswick' },
+    { id: 5, name: 'Newfoundland & Labrador' },
+    { id: 6, name: 'Northwest Territories' },
+    { id: 7, name: 'Nova Scotia' },
+    { id: 8, name: 'Nunavut' },
+    { id: 9, name: 'Ontario' },
+    { id: 10, name: 'Prince Edward Island' },
+    { id: 11, name: 'Quebec' },
+    { id: 12, name: 'Saskatchewan' },
+    { id: 13, name: 'Yukon' },
+    { id: 14, name: 'Canada' }
+])
+
+Subregion.create([
+    { id: 1, region_id: 2, name: 'Vancouver' },
+    { id: 2, region_id: 9, name: 'Toronto' },
+    { id: 3, region_id: 11, name: 'Montreal' }
+])
+
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'sales_data.csv'))
+csv = CSV.parse(csv_text, headers: true, encoding: 'ISO-8859-1')
+
+csv.each do |row|
+    s = Sale.new
+    s.year = row['year']
+    s.month = row['month']
+    s.value = row['value']
+    s.region_id = row['region_id']
+    s.subregion_id = row['subregion_id']
+    s.industry_id = row['industry_id']
+    s.subindustry_id = row['subindustry_id']
+    s.save
+end
+
+industries = Industry.all
+subindustries = Subindustry.all
+regions = Region.all
+subregions = Subregion.all
+sales = Sale.all
+
+puts Cowsay.say("Created #{users.count} users", :tux)
+puts Cowsay.say("Created #{industries.count} industries & #{subindustries.count} subindustries", :cow)
+puts Cowsay.say("Created #{regions.count} regions & #{subregions.count} subregions", :frogs)
+puts Cowsay.say("Woah! Loaded #{sales.count} sales", :cheese)

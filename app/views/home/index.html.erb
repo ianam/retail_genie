@@ -1,0 +1,5 @@
+<h1>Home Placeholder</h1>
+
+<% if current_user.present? %>
+    <p>Welcome, <%= @user.full_name %>!</p>
+<% end %>

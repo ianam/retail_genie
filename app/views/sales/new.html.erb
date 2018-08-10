@@ -1,0 +1,14 @@
+<h1>Add Your Sales!</h1>
+
+<p>Please add a minimum of one calendar year (12 months) of sales for best visualization results!</p>
+
+<%= simple_form_for(@sale) do |f| %>
+    <% @years.each { |year| %>
+        <% @months.each { |month| %>
+            <%= f.input :year, input_html: { value: year, name: 'sales[][year]' } %>
+            <%= f.input :month, input_html: { value: month, name: 'sales[][month]' } %>
+            <%= f.input :value, input_html: { name: 'sales[][value]' } %>
+        <% } %>
+    <% } %>      
+<%= f.submit class: 'btn btn-primary' %>
+<% end %>
