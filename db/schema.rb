@@ -10,25 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_08_025009) do
+ActiveRecord::Schema.define(version: 2018_08_10_004729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
-    t.bigint "user_id"
     t.bigint "industry_id"
     t.bigint "subindustry_id"
     t.bigint "region_id"
     t.bigint "subregion_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["industry_id"], name: "index_companies_on_industry_id"
     t.index ["region_id"], name: "index_companies_on_region_id"
     t.index ["subindustry_id"], name: "index_companies_on_subindustry_id"
     t.index ["subregion_id"], name: "index_companies_on_subregion_id"
-    t.index ["user_id"], name: "index_companies_on_user_id"
+    t.index ["user_id"], name: "index_companies_on_user_id", unique: true
   end
 
   create_table "industries", force: :cascade do |t|
@@ -53,6 +53,8 @@ ActiveRecord::Schema.define(version: 2018_08_08_025009) do
     t.bigint "subregion_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "company_id"
+    t.index ["company_id"], name: "index_sales_on_company_id"
     t.index ["industry_id"], name: "index_sales_on_industry_id"
     t.index ["region_id"], name: "index_sales_on_region_id"
     t.index ["subindustry_id"], name: "index_sales_on_subindustry_id"
@@ -90,7 +92,7 @@ ActiveRecord::Schema.define(version: 2018_08_08_025009) do
   add_foreign_key "companies", "regions"
   add_foreign_key "companies", "subindustries"
   add_foreign_key "companies", "subregions"
-  add_foreign_key "companies", "users"
+  add_foreign_key "sales", "companies"
   add_foreign_key "sales", "industries"
   add_foreign_key "sales", "regions"
   add_foreign_key "sales", "subindustries"

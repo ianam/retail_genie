@@ -1,7 +1,7 @@
 class User < ApplicationRecord
     has_secure_password
 
-    has_many :companies, dependent: :nullify
+    has_one :company
 
     validates :first_name, :last_name, presence: true
     validates :username, presence: true, uniqueness: true
