@@ -1,15 +1,14 @@
 class SalesController < ApplicationController
 
     def index
-        @sale = {}
-
-        Sale.where("subindustry_id = ? AND region_id = ? AND year = ?", 1, 3, 2017).each {|item| @sale[item.month] = item.value}
+        @company = current_user.company
+        @sales = Sale.where(company_id: current_user.company)
     end
 
     def new
         @sale = Sale.new
 
-        @years = [2017]
+        @years = [2017, 2016]
         @months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     end
 
@@ -24,6 +23,7 @@ class SalesController < ApplicationController
             @sale.subregion_id = current_user.company.subregion_id
             @sale.save
         end
+        redirect_to sales_path
     end
 
     private

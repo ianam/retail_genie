@@ -18,3 +18,21 @@
 //= require rails-ujs
 //= require activestorage
 //= require_tree .
+
+document.addEventListener('DOMContentLoaded', () => {
+    const years = document.querySelectorAll('.fa').forEach(node => {
+        node.addEventListener('click', event => {
+            const { currentTarget } = event;
+
+            if (currentTarget.classList.contains('fa-angle-down')) {
+                currentTarget.classList.remove('fa-angle-down');
+                currentTarget.classList.add('fa-angle-up');
+                currentTarget.parentNode.nextElementSibling.classList.remove('hidden')
+            } else {
+                currentTarget.classList.remove('fa-angle-up');
+                currentTarget.classList.add('fa-angle-down');
+                currentTarget.parentNode.nextElementSibling.classList.add('hidden')
+            }
+        });
+    });
+});

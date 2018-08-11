@@ -4,4 +4,6 @@ class Sale < ApplicationRecord
     belongs_to :subindustry, optional: true
     belongs_to :region, optional: true
     belongs_to :subregion, optional: true
+
+    validates :value, presence: true
 end
