@@ -6,4 +6,34 @@ class Sale < ApplicationRecord
     belongs_to :subregion, optional: true
 
     validates :value, presence: true
+    validates :company, uniqueness: { scope: [:month, :year] }
+
+    def self.filter_sale(sales)
+        sales.each do |entry|
+            if entry[:value] == ""
+                sales.delete(entry)
+            end
+        end
+        sales.each do |entry|
+            if entry[:value] == ""
+                sales.delete(entry)
+            end
+        end
+        sales.each do |entry|
+            if entry[:value] == ""
+                sales.delete(entry)
+            end
+        end
+        sales.each do |entry|
+            if entry[:value] == ""
+                sales.delete(entry)
+            end
+        end
+        sales.each do |entry|
+            if entry[:value] == ""
+                sales.delete(entry)
+            end
+        end
+        return sales
+    end
 end
