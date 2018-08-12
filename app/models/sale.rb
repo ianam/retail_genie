@@ -7,6 +7,9 @@ class Sale < ApplicationRecord
 
     validates :value, presence: true
     validates :company, uniqueness: { scope: [:month, :year] }
+    # *******************************************************
+    # Figure out why filter doesn't work on 1st loop
+    # *******************************************************
 
     def self.filter_sale(sales)
         sales.each do |entry|

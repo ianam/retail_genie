@@ -1,11 +1,10 @@
-<h2><%= @user.full_name %>'s Profile</h2>
+<h2><%= fa_stacked_icon "user-circle" %><%= @user.full_name %>'s Profile</h2>
 
-<h3>Your registered companies:</h3>
-<ul>
-    <% @companies.each do |company| %>
-    <li>
-        <%= link_to company.name, company_path(company.id) %>
-        <br>
-    </li>
-    <% end %>
-</ul>
+<% if @company %>
+    <h3>Your registered company:</h3>
+    <p>
+        <%= link_to @company.name, company_path(@company.id) %>
+    </p>
+<% else %>
+    <button><% link_to "Register Your Company", new_company_path, class: "btn btn-success"%>
+<% end %>

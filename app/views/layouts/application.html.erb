@@ -5,6 +5,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <script src="anime.min.js"></script>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
@@ -22,18 +23,12 @@
               <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/companies/new">New Company</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/companies">Company Index</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="/sales">Sales Data</a>
             </li>
             <% if current_user.present? %>
-              <span class="mt-2">Welcome back, <%= current_user.first_name %>!</span>
+              <span class="mt-2">Hi, <%= current_user.first_name %>!</span>
               <li class="nav-item">
-                <%= link_to 'Account', user_path(current_user), class: 'nav-link' %>
+                <%= link_to 'My Account', user_path(current_user), class: 'nav-link' %>
               </li>
               <li class="nav-item">
                 <%= link_to 'Sign Out', session_path, method: :delete, class: 'nav-link' %>

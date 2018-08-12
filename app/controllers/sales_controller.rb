@@ -3,6 +3,7 @@ class SalesController < ApplicationController
     def index
         @company = current_user.company
         @sales = Sale.where(company_id: current_user.company)
+
     end
 
     def new
@@ -36,10 +37,40 @@ class SalesController < ApplicationController
         redirect_to sales_path
     end
 
+    def edit
+        @sale = Sale.find params[:id]
+
+        respond_to do |format|
+            format.html
+            format.js
+        end
+    end
+
+    def update
+        @sale = Sale.find params[:id]
+
+        if @sale.update(value_param)
+            redirect_to sales_path
+        else
+            render :edit
+        end
+    end
+
+    def destroy
+        @sale = Sale.find params[:id]
+        @sale.destroy
+
+        redirect_to sales_path
+    end
+
     private
     def sale_permit
         params.require(:sales).each do |sale_params|
             sale_params.permit!
         end
+    end
+
+    def value_param
+        params.require(:sale).permit(:value)
     end
 end

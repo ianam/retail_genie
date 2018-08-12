@@ -2,40 +2,4 @@
 
 <p>Please add a minimum of one calendar year (12 months) of sales for best visualization results!</p>
 
-<%= simple_form_for(@sale) do |f| %>
-
-<% @years.each { |year| %>
-<div class="card" style="width: 25rem;">
-    <div class="card-body">
-        <h4 class="card-title">
-            <%= year %>
-            <span class="fa fa-angle-down ml-auto"></span>
-        </h4>
-        <div class = "card-text hidden">
-            <div class="row">
-                <div class="col-4">
-                    <h5>Month</h5>
-                </div>
-                <div class="col-8">
-                    <h5>Sales ($)</h5>
-                </div>
-            </div>
-            <% @months.each { |month| %>
-            <div class="row">
-                <div class="col-4 mt-1">
-                    <p><%= month %>
-                </div>
-                <div class="col-8">
-                    <%= f.input :year, as: :hidden, input_html: { value: year, name: 'sales[][year]' } %>
-                    <%= f.input :month, as: :hidden, input_html: { value: month, name: 'sales[][month]' } %>
-                    <%= f.input :value, label: false, input_html: { name: 'sales[][value]' } %>
-                </div>
-            </div>
-            <% } %>
-        </div>
-    </div>
-</div>
-<br>
-<% } %>
-<%= f.submit class: 'btn btn-primary' %>
-<% end %>
+<%= render 'form' %>
