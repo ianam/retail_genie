@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/thomaspark/bootswatch.git
+  revision: 46b8d9f7131f7424e89a3d323f735614fb187e6c
+  specs:
+    bootswatch (4.1.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -213,6 +219,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)
   bootstrap
+  bootswatch!
   byebug
   cancancan
   chosen-rails

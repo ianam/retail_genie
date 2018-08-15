@@ -2,32 +2,38 @@
 
 <h2><%= @company.name %> Sales Data:</h2>
 
-<table class="table">
-    <tr>
-        <th>Year</th>
-        <th>Month</th>
-        <th>Revenue ($)</th>
-        <th>Action</th>
-    </tr>
-    <% @sales.each do |sale| %>
+<% if @sales.empty? %>
+<p>You have no sales to show!</p>
+    <%= link_to 'Add Your Sales', new_sale_path, class: 'btn btn-success'%>
+<% else %>
+    <%= link_to 'Add Sales', new_sale_path, class: 'btn btn-success'%>
+    <table class="table">
         <tr>
-            <td><%= sale.year %></td>
-            <td><%= sale.month %></td>
-            <td><%= sale.value %></td>
-            <td>
-                <%= link_to("Edit", edit_sale_path(sale), {:class => "btn btn-outline-primary ml-3", :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#editSaleModal'}) %>
-                <%= link_to "Delete", sale_path(sale), method: :delete %>
-            </td>
+            <th>Year</th>
+            <th>Month</th>
+            <th>Revenue ($)</th>
+            <th>Action</th>
         </tr>
-    <% end %>
-</table>
+        <% @sales.each do |sale| %>
+            <tr>
+                <td><%= sale.year %></td>
+                <td><%= sale.month %></td>
+                <td><%= number_to_currency(sale.value, precision: 0) %></td>
+                <td>
+                    <%= link_to("Edit", edit_sale_path(sale), {class: "btn btn-outline-primary", remote: true, 'data-toggle' =>  "modal", 'data-target' => '#editSaleModal'}) %>
+                    <%= link_to "Delete", sale_path(sale), method: :delete, class: "btn btn-outline-primary" %>
+                </td>
+            </tr>
+        <% end %>
+    </table>
+<% end %>
 
 <!-- Modal -->
     <div class="modal fade" id="editSaleModal" tabindex="-1" role="dialog">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="saleEdit">Edit Sale</h5>
+            <h5 class="modal-title" id="saleEdit">Update Sale</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

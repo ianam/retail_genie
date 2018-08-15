@@ -38,6 +38,7 @@ gem 'cowsay'
 gem 'faker'
 gem 'cancancan'
 gem 'bootstrap'
+gem 'bootswatch', github: "thomaspark/bootswatch"
 gem 'jquery-rails'
 gem 'chosen-rails'
 gem 'active_model_serializers'

@@ -12,8 +12,9 @@
  *
  *= require chosen
  */
-
+ @import "pulse/variables";
  @import 'bootstrap';
+ @import "pulse/bootswatch";
  @import "font-awesome";
 
  .hidden {

@@ -1,6 +1,12 @@
-<h1>Edit Your Sales!</h1>
-
 <%= simple_form_for @sale do |f| %>
-  <%= f.input :value %>
+  <h4><%= @sale.year %></h4>
+  <div class="row">
+    <div class="col-2 mt-1">
+      <%= @sale.month %>
+    </div>
+    <div class="col-8 mr-5">
+      <%= f.input :value, label: false %>
+    </div>
+  </div>
   <%= f.submit class: "btn btn-primary" %>
 <% end %>

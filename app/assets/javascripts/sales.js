@@ -8,10 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let saleJSON = JSON.parse(saleData);
 
     for (let key in saleJSON) {
-        data.push({ month: key, value : saleJSON[key]})
+        data.push({ month: key, value: saleJSON[key]})
     };
-
-    console.table(data)
 
     // Define our margins
     const margin = {top: 10, right: 10, bottom: 100, left: 100};
