@@ -40,7 +40,7 @@ class Company < ApplicationRecord
         sale = {}
 
         Sale.where("company_id = ? AND year = ?", company.id, year)
-            .each {|item| sale[item.month] = item.value}
+            .each {|item| sale["#{item.month}, #{item.year}"] = item.value}
 
         return sale
     end

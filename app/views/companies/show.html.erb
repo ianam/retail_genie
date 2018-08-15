@@ -21,11 +21,11 @@
 <h5><%= @company.industry.name %> Overview for 2017:</h5>
 
 <div class="row" style="width: 600px">
-<canvas id="myChart" width="400" height="400" data-sales='<%= raw @data.to_json %>'></canvas>
+    <canvas id="single-chart" data-sales='<%= raw @data.to_json %>'></canvas>
 </div>
 
 <div class="row">
-    <div class="dual-chart" data-sales='<%= raw @sales.to_json %>'></div>
+    <canvas id="dual-chart" data-sales='<%= raw @sales.to_json %>'></canvas>
 </div>
 
 <table class="table">
