@@ -4,19 +4,19 @@ class SalesController < ApplicationController
         @company = current_user.company
         @sales = Sale.where(company_id: current_user.company)
 
+        @months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     end
 
     def new
         @sale = Sale.new
+        @company = current_user.company
+        @sales = Sale.where(company_id: current_user.company)
 
         @years = [2017, 2016]
         @months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     end
 
     def create
-        @years = [2017, 2016]
-        @months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-
         sale_permit
 
         new_sales = Sale.filter_sale(params[:sales])
@@ -30,10 +30,12 @@ class SalesController < ApplicationController
             @sale.subregion_id = current_user.company.subregion_id
 
             if !@sale.save
-                render :new and return
+                flash[:danger] = "Sales data already exists"
+                redirect_to new_sale_path and return
             end
         end
 
+        flash[:success] = "Sales saved"
         redirect_to sales_path
     end
 
