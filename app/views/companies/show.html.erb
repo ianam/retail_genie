@@ -28,6 +28,10 @@
     <canvas id="dual-chart" data-sales='<%= raw @sales.to_json %>'></canvas>
 </div>
 
+<h3><%= @company.name %> total sales for 2017: $<%= @total_sales%></h3>
+<h3><%= @company.name %> average monthly sales for 2017: $<%= @avg_sales%></h3>
+<h3>Other stuff: best month, worst month, growth 2016-2017, trend over 2017</h3>
+
 <table class="table">
     <tr>
         <th>Month</th>

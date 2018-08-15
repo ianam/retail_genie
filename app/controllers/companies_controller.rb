@@ -24,6 +24,9 @@ class CompaniesController < ApplicationController
         # Populate sales data based on selected year
         @data = Company.data(@company, 2017)
         @sales = Company.sales(@company, 2017)
+
+        @total_sales = @sales.values.sum
+        @avg_sales = @total_sales/(@sales.values.count)
     end
 
     def index
