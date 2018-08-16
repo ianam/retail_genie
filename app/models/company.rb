@@ -6,6 +6,10 @@ class Company < ApplicationRecord
     belongs_to :subregion, optional: true
     has_many :sales, dependent: :destroy
 
+    def subregion
+        
+    end
+
     # Search method for given company's industry sales by region, industry, and year
     def self.data(company, year)
         data = {}

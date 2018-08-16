@@ -1,52 +1,6 @@
 // Add listeners to selections on Company new page
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Add subregion selector based on region selected
-    document.querySelector('#region-selector').addEventListener('input', event => {
-        const { currentTarget } = event;
-        const region = currentTarget.value;
-        const subregion = document.querySelector('.company_subregion_id')
-        const radio_buttons = document.querySelectorAll('.form-check')
-
-        // ************************************************************************
-        // TO DO: Add a "no" radio selector that sets "subregion_id" to null
-        // ************************************************************************
-
-        if (region === "2") { // British Columbia
-            subregion.classList.remove('hidden');
-            subregion.firstChild.innerHTML = "Are you located in Vancouver?"
-            radio_buttons.forEach((node, i) => {
-                if (i === 0) { // Vancouver
-                    node.innerHTML = '<input class="form-check-input radio_buttons optional" type="radio" value="1" name="company[subregion_id]" id="company_subregion_id_1"><label class="collection_radio_buttons" for="company_subregion_id_1">Yes</label>'
-                } else {
-                    node.innerHTML = "";
-                }
-            })
-        } else if (region === "9") { // Ontario
-            subregion.classList.remove('hidden');
-            subregion.firstChild.innerHTML = "Are you located in Toronto?"
-            radio_buttons.forEach((node, i) => {
-                if (i === 1) { // Toronto
-                    node.innerHTML = '<input class="form-check-input radio_buttons optional" type="radio" value="2" name="company[subregion_id]" id="company_subregion_id_1"><label class="collection_radio_buttons" for="company_subregion_id_1">Yes</label>'
-                } else {
-                    node.innerHTML = "";
-                }
-            })
-        } else if (region === "11") { // Quebec
-            subregion.classList.remove('hidden');
-            subregion.firstChild.innerHTML = "Are you located in Montreal?"
-            radio_buttons.forEach((node, i) => {
-                if (i === 2) { // Montreal
-                    node.innerHTML = '<input class="form-check-input radio_buttons optional" type="radio" value="3" name="company[subregion_id]" id="company_subregion_id_1"><label class="collection_radio_buttons" for="company_subregion_id_1">Yes</label>'
-                } else {
-                    node.innerHTML = "";
-                }
-            })
-        } else {
-            subregion.classList.add('hidden');
-        }
-    });
-
     // Add subindustry selector based on industry selected
     document.querySelector('#industry-selector').addEventListener('input', event => {
         const { currentTarget } = event;

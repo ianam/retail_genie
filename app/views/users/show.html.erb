@@ -6,5 +6,6 @@
         <%= link_to @company.name, company_path(@company.id) %>
     </p>
 <% else %>
+    <p>Hi, <%= @user.first_name %>! In order to get access to personalized data resources, you'll need to register your company. To register your company, click on the button below.</p>
     <%= link_to "Register Your Company", new_company_path, class: "btn btn-success"%>
 <% end %>
