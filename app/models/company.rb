@@ -44,4 +44,23 @@ class Company < ApplicationRecord
 
         return sale
     end
+
+    # Search and sum all industry sales for a given region and year per industry
+    def self.industry_sales(company, year)
+        r = company.subregion ? 'subregion' : 'region'
+        r_id = company.subregion ? company.subregion.id : company.region.id
+
+        data = {}
+
+        sales = Sale.where(
+            "#{r}_id = ? AND year = ? AND company_id IS ?", r_id, year, nil)
+
+        industries = (1..11).to_a
+
+        industries.each do |industry|
+            data[industry] = sales.where(industry: industry).pluck(:value).sum
+        end
+
+        return data
+    end
 end

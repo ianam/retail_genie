@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         type: 'line',
         data: lineChartData,
         options: {
+            responsive: true,
             scales: {
                 yAxes: [{
                     type: 'linear',
@@ -69,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     display: true,
                     position: 'right',
                     id: 'y-axis-2',
-
                     gridLines: {
                         drawOnChartArea: false
                     }

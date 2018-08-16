@@ -25,8 +25,15 @@ class CompaniesController < ApplicationController
         @data = Company.data(@company, 2017)
         @sales = Company.sales(@company, 2017)
 
-        @total_sales = @sales.values.sum
-        @avg_sales = @total_sales/(@sales.values.count)
+        @data_2016 = Company.data(@company, 2016)
+        @sales_2016 = Company.sales(@company, 2016)
+
+        @industry_sales = Company.industry_sales(@company, 2017)
+
+        if !@sales.empty?
+            @total_sales = @sales.values.sum
+            @avg_sales = @total_sales/(@sales.values.count)
+        end
     end
 
     def index

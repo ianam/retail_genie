@@ -6,11 +6,6 @@
     <h3><%= @company.subindustry.name %></h3>
 <% end %>
 
-<hr>
-    <%= link_to 'Add Your Company Data', new_sale_path, class: 'btn btn-success'%>
-    <%= link_to 'View Sales Data', sales_path, class: 'btn btn-primary'%>
-<hr>
-
 <h4>
 <% if @company.subregion %>
     <%= @company.subregion.name%>,
@@ -18,29 +13,37 @@
 <%= @company.region.name %>
 </h4>
 
-<h5><%= @company.industry.name %> Overview for 2017:</h5>
+<hr>
+    <%= link_to 'Add Your Company Data', new_sale_path, class: 'btn btn-success'%>
+    <%= link_to 'View Sales Data', sales_path, class: 'btn btn-primary'%>
+<hr>
 
-<div class="row" style="width: 600px">
-    <canvas id="single-chart" data-sales='<%= raw @data.to_json %>'></canvas>
+<form>
+    <div class="form-group">
+        <label for="year-selector">Year</label>
+        <select class="form-control" id='year-selector'>
+            <option id="2016">2016</option>
+            <option selected="selected" id="2017">2017</option>
+        </select>
+    </div>
+</form>
+
+<div class="sales2017">
+    <h5><%= @company.industry.name %> Sales for 2017:</h5>
+
+        <div class="row" style="width: 600px">
+            <canvas id="single-chart" data-sales='<%= raw @data.to_json %>'></canvas>
+        </div>
+
+        <p>Total sales for 2017: $<%= @total_sales%></p>
+        <p>Average monthly sales for 2017: $<%= @avg_sales%></p>
+        <p>Other stuff: best month, worst month, growth 2016-2017, trend over 2017</p>
+        
+        <div class="row" style="width: 600px">
+            <canvas id="dual-chart" data-sales='<%= raw @sales.to_json %>'></canvas>
+        </div>
+
+        <div class="row" style="width: 800px">
+            <canvas id="doughnut-chart" data-sales='<%= raw @industry_sales.to_json %>'></canvas>
+        </div>
 </div>
-
-<div class="row">
-    <canvas id="dual-chart" data-sales='<%= raw @sales.to_json %>'></canvas>
-</div>
-
-<h3><%= @company.name %> total sales for 2017: $<%= @total_sales%></h3>
-<h3><%= @company.name %> average monthly sales for 2017: $<%= @avg_sales%></h3>
-<h3>Other stuff: best month, worst month, growth 2016-2017, trend over 2017</h3>
-
-<table class="table">
-    <tr>
-        <th>Month</th>
-        <th>Revenue ($)</th>
-    </tr>
-    <% @data.each do |key, value| %>
-        <tr>
-            <td><%= key %></td>
-            <td><%= value %></td>
-        </tr>
-    <% end %>
-</table>
