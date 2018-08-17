@@ -17,18 +17,18 @@ class SalesController < ApplicationController
     end
 
     def create
-        sale_permit
-
-        # new_sales = Sale.filter_sale(params[:sales])
-
         params[:sales].each do |sale_params|
             if sale_params['value'].present?
-                @sale = Sale.new sale_params
-                @sale.company = current_user.company
-                @sale.industry_id = current_user.company.industry_id
-                @sale.subindustry_id = current_user.company.subindustry_id
-                @sale.region_id = current_user.company.region_id
-                @sale.subregion_id = current_user.company.subregion_id
+                @sale = Sale.new(
+                    value: sale_params[:value],
+                    month: sale_params[:month],
+                    year: sale_params[:year],
+                    company: current_user.company,
+                    industry_id: current_user.company.industry_id,
+                    subindustry_id: current_user.company.subindustry_id,
+                    region_id: current_user.company.region_id,
+                    subregion_id: current_user.company.subregion_id
+                )
 
                 if !@sale.save
                     flash[:danger] = "Sales data already exists"
@@ -65,16 +65,5 @@ class SalesController < ApplicationController
         @sale.destroy
 
         redirect_to sales_path
-    end
-
-    private
-    def sale_permit
-        params.require(:sales).each do |sale_params|
-            sale_params.permit!
-        end
-    end
-
-    def value_param
-        params.require(:sale).permit(:value)
     end
 end
