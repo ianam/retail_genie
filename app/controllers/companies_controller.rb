@@ -28,12 +28,9 @@ class CompaniesController < ApplicationController
 
     def show
         @company = Company.find params[:id]
-        # Populate sales data based on selected yea
-        @data = Company.data(@company, 2017)
-        @sales = Company.sales(@company, 2017)
 
-        @data_2016 = Company.data(@company, 2016)
-        @sales_2016 = Company.sales(@company, 2016)
+        @data = Company.data(@company)
+        @sales = Company.sales(@company, 2017)
 
         @industry_sales = Company.industry_sales(@company, 2017)
 

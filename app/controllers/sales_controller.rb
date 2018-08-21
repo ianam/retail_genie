@@ -53,11 +53,14 @@ class SalesController < ApplicationController
     def update
         @sale = Sale.find params[:id]
 
-        if @sale.update(value_param)
-            redirect_to sales_path
-        else
-            render :edit
-        end
+        render json: @sale
+
+        # if @sale.update(value: params[:value])
+        #     redirect_to sales_path
+        # else
+        #     flash[:danger] = "Error"
+        #     redirect_to sales_path
+        # end
     end
 
     def destroy

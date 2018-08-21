@@ -6,12 +6,8 @@ class Company < ApplicationRecord
     belongs_to :subregion, optional: true
     has_many :sales, dependent: :destroy
 
-    def subregion
-        
-    end
-
     # Search method for given company's industry sales by region, industry, and year
-    def self.data(company, year)
+    def self.data(company)
         data = {}
 
         # If sub-categories exist, use those, otherwise use the parent categories
@@ -23,15 +19,15 @@ class Company < ApplicationRecord
 
         # Search the db and push results to a 'data' hash
         Sale.where(
-            "#{r}_id = ? AND #{i}_id = ? AND year = ? AND company_id IS ?",
-            r_id, i_id, year, nil).each {|item| data["#{item.month}, #{item.year}"] = item.value}
+            "#{r}_id = ? AND #{i}_id = ? AND company_id IS ?",
+            r_id, i_id, nil).each {|item| data["#{item.month}, #{item.year}"] = item.value}
 
         # Some subindustries do not have results for certain years
         # in this case, use the parent industry data for display
         if data.empty?
             Sale.where(
-                "#{r}_id = ? AND industry_id = ? AND year = ?  AND company_id IS ?",
-                r_id, company.industry.id, year, nil).each {|item| data["#{item.month}, #{item.year}"] = item.value}
+                "#{r}_id = ? AND industry_id = ? AND company_id IS ?",
+                r_id, company.industry.id, nil).each {|item| data["#{item.month}, #{item.year}"] = item.value}
         else
             return data
         end

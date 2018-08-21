@@ -24,26 +24,28 @@
             <li class="nav-item">
               <%= link_to 'The Data', data_path, class: 'nav-link' %>
             </li>
-          </ul>
-          <ul class="navbar-nav ml-auto">
             <% if current_user.present? %>
               <li class="nav-item">
                 <%= link_to 'My Account', user_path(current_user), class: 'nav-link' %>
               </li>
-              <% if current_user.company %>
-                <li class="nav-item">
-                  <%= link_to 'Company Dashboard', company_path(current_user.company), class: 'nav-link' %>
-                </li>
-              <% end %>
+            <% if current_user.company %>
+              <li class="nav-item">
+                <%= link_to 'Company Dashboard', company_path(current_user.company), class: 'nav-link' %>
+              </li>
+            <% end %>
+          </ul>
+          <ul class="navbar-nav ml-auto">
               <li class="nav-item">
                 <%= link_to '<i class="fa fa-sign-out"></i> Sign Out'.html_safe, session_path, method: :delete, class: 'nav-link' %>
               </li>
             <% else %>
+            </ul>
+            <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <%= link_to('<i class="fa fa-user"></i> Login'.html_safe, new_session_path, class: 'nav-link') %> 
+                <%= link_to '<i class="fa fa-user"></i> Login'.html_safe, new_session_path, class: 'nav-link' %> 
               </li>
               <li class="nav-item">
-                <%= link_to('<i class="fa fa-sign-in"></i> Sign Up'.html_safe, new_user_path, class: 'nav-link') %>
+                <%= link_to '<i class="fa fa-sign-in"></i> Sign Up'.html_safe, new_user_path, class: 'nav-link' %>
               </li>
             <% end %>
           </ul>
