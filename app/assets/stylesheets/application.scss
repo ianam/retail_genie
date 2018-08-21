@@ -12,18 +12,42 @@
  *
  *= require chosen
  */
-
+ @import "pulse/variables";
  @import 'bootstrap';
+ @import "pulse/bootswatch";
+ @import "font-awesome";
+
+ input,
+ textarea,
+ select,
+ option {
+   font-size: inherit;
+ }
 
  .hidden {
     display: none;
   }
 
-  .chart div {
-    font: 10px sans-serif;
-    background-color: steelblue;
-    text-align: right;
-    padding: 3px;
-    margin: 1px;
-    color: white;
+  body {
+    background-color: #F8F8F8;
+  }
+
+  #sign-in {
+    width: 500px;
+    background-color: white;
+  }
+
+  #company-register {
+    width: 700px;
+    background-color: white;
+  }
+
+  .navbar-dark .navbar-nav .nav-link {
+    color: lavender;
+    font-size: 1.2em;
+  }
+
+  .navbar-nav > li{
+    padding-left:10px;
+    padding-right:10px;
   }

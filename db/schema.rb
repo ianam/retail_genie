@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_10_004729) do
+ActiveRecord::Schema.define(version: 2018_08_16_183657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 2018_08_10_004729) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.string "address"
+    t.string "city"
     t.index ["industry_id"], name: "index_companies_on_industry_id"
     t.index ["region_id"], name: "index_companies_on_region_id"
     t.index ["subindustry_id"], name: "index_companies_on_subindustry_id"
@@ -56,6 +58,7 @@ ActiveRecord::Schema.define(version: 2018_08_10_004729) do
     t.bigint "company_id"
     t.index ["company_id"], name: "index_sales_on_company_id"
     t.index ["industry_id"], name: "index_sales_on_industry_id"
+    t.index ["month", "year", "company_id"], name: "index_sales_on_month_and_year_and_company_id", unique: true
     t.index ["region_id"], name: "index_sales_on_region_id"
     t.index ["subindustry_id"], name: "index_sales_on_subindustry_id"
     t.index ["subregion_id"], name: "index_sales_on_subregion_id"
@@ -78,7 +81,6 @@ ActiveRecord::Schema.define(version: 2018_08_10_004729) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "username"
     t.string "first_name"
     t.string "last_name"
     t.string "email"

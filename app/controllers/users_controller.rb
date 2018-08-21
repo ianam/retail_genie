@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
     def show
         @user = User.find params[:id]
-        @companies = Company.where("user_id = ?", current_user.id)
+        @company = current_user.company
     end
 
     private

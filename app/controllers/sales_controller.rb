@@ -1,35 +1,72 @@
 class SalesController < ApplicationController
 
     def index
-        @sale = {}
+        @company = current_user.company
+        @sales = Sale.where(company_id: current_user.company)
 
-        Sale.where("subindustry_id = ? AND region_id = ? AND year = ?", 1, 3, 2017).each {|item| @sale[item.month] = item.value}
+        @months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     end
 
     def new
         @sale = Sale.new
+        @company = current_user.company
+        @sales = Sale.where(company_id: current_user.company)
 
-        @years = [2017]
+        @years = [2017, 2016]
         @months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     end
 
     def create
         params[:sales].each do |sale_params|
-            sale_permit
-            @sale = Sale.new sale_params
-            @sale.company = current_user.company
-            @sale.industry_id = current_user.company.industry_id
-            @sale.subindustry_id = current_user.company.subindustry_id
-            @sale.region_id = current_user.company.region_id
-            @sale.subregion_id = current_user.company.subregion_id
-            @sale.save
+            if sale_params['value'].present?
+                @sale = Sale.new(
+                    value: sale_params[:value],
+                    month: sale_params[:month],
+                    year: sale_params[:year],
+                    company: current_user.company,
+                    industry_id: current_user.company.industry_id,
+                    subindustry_id: current_user.company.subindustry_id,
+                    region_id: current_user.company.region_id,
+                    subregion_id: current_user.company.subregion_id
+                )
+
+                if !@sale.save
+                    flash[:danger] = "Sales data already exists"
+                    redirect_to new_sale_path and return
+                end
+            end
+        end
+
+        flash[:success] = "Sales saved"
+        redirect_to sales_path
+    end
+
+    def edit
+        @sale = Sale.find params[:id]
+
+        respond_to do |format|
+            format.html
+            format.js
         end
     end
 
-    private
-    def sale_permit
-        params.require(:sales).each do |sale_params|
-            sale_params.permit!
-        end
+    def update
+        @sale = Sale.find params[:id]
+
+        render json: @sale
+
+        # if @sale.update(value: params[:value])
+        #     redirect_to sales_path
+        # else
+        #     flash[:danger] = "Error"
+        #     redirect_to sales_path
+        # end
+    end
+
+    def destroy
+        @sale = Sale.find params[:id]
+        @sale.destroy
+
+        redirect_to sales_path
     end
 end

@@ -4,7 +4,6 @@ class User < ApplicationRecord
     has_one :company
 
     validates :first_name, :last_name, presence: true
-    validates :username, presence: true, uniqueness: true
 
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 

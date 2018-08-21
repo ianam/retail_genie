@@ -1,14 +1,45 @@
-<h1>Add Your Sales!</h1>
-
-<p>Please add a minimum of one calendar year (12 months) of sales for best visualization results!</p>
-
+<h1><%= @company.name %>'s Sales</h1>
+<p>Add new sales with this form. Disabled fields are already saved - to edit them, go to your <%= link_to 'sales data', sales_path %> page</p>
 <%= simple_form_for(@sale) do |f| %>
+
+<div class="row" style="width: 900px;">
     <% @years.each { |year| %>
-        <% @months.each { |month| %>
-            <%= f.input :year, input_html: { value: year, name: 'sales[][year]' } %>
-            <%= f.input :month, input_html: { value: month, name: 'sales[][month]' } %>
-            <%= f.input :value, input_html: { name: 'sales[][value]' } %>
-        <% } %>
-    <% } %>      
-<%= f.submit class: 'btn btn-primary' %>
+    <div class="card col-5 mr-2">
+        <div class="card-body">
+            <h4 class="card-title">
+                <%= year %>
+            </h4>
+            <div class = "card-text">
+                <div class="row">
+                    <div class="col-4">
+                        <h5>Month</h5>
+                    </div>
+                    <div class="col-8">
+                        <h5>Sales ($)</h5>
+                    </div>
+                </div>
+                <% @months.each { |month| %>
+                <div class="row" style="height: 40px;">
+                    <div class="col-4 mt-1">
+                        <p><%= month %></p>
+                    </div>
+                    <div class="col-8">
+                        <%= f.input :year, as: :hidden, input_html: { value: year, name: 'sales[][year]' } %>
+                        <%= f.input :month, as: :hidden, input_html: { value: month, name: 'sales[][month]' } %>
+                        <% sale = @sales.where(month: month, year: year).first %>
+                        <% if sale.present? %>
+                            <%= f.input :value, label: false, disabled: true, placeholder: 'Saved' %>
+                        <% else %>
+                            <%= f.input :value, label: false, input_html: { name: 'sales[][value]' } %>
+                        <% end %>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <% } %>
+</div>
+<br>
+<%= f.submit "Save Sales", class: 'btn btn-primary', wrapper_html: { id: 'sale-submit' } %>
 <% end %>

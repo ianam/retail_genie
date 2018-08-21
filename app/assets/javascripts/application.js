@@ -18,3 +18,16 @@
 //= require rails-ujs
 //= require activestorage
 //= require_tree .
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('#year-selector').addEventListener('input', event => {
+        const { currentTarget } = event;
+        const year = currentTarget.value;
+
+        if (year === "2016") {
+            
+        } else if (year === "2017") {
+            
+        };
+    });
+});
