@@ -1,10 +1,25 @@
 <h2><%= fa_stacked_icon "user-circle" %><%= @user.full_name %>'s Profile</h2>
 
-<% if @company %>
-    <h3>Your registered company:</h3>
-    <p>
-        <%= link_to @company.name, company_path(@company.id) %>
-    </p>
+<div class="container border rounded p-5" style="background-color: white;">
+    <% if @company %>
+        <h5 >Your registered company:</h5>
+        <h2><%= link_to @company.name, company_path(@company.id) %></h2>
+        <h4><%= @company.industry.name %></h4>
+
+        <% if @company.subindustry %>
+            <p><%= @company.subindustry.name %></p>
+        <% end %>
+
+        <p>
+        <% if @company.subregion %>
+            <%= @company.subregion.name%>,
+        <% end %>
+        <%= @company.region.name %>
+        </p>
+
+        <%= link_to 'Edit Company', new_sale_path, class: 'btn btn-outline-primary btn-lg' %>
+        <%= link_to 'Delete Company', sales_path, class: 'btn btn-outline-primary btn-lg' %>
+</div>
 <% else %>
     <p>Hi, <%= @user.first_name %>! In order to get access to personalized data resources, you'll need to register your company. To register your company, click on the button below.</p>
     <%= link_to "Register Your Company", new_company_path, class: "btn btn-success"%>

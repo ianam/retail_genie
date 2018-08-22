@@ -30,7 +30,7 @@ class CompaniesController < ApplicationController
         @company = Company.find params[:id]
 
         @data = Company.data(@company)
-        @sales = Company.sales(@company, 2017)
+        @sales = Company.sales(@company)
 
         @industry_sales = Company.industry_sales(@company, 2017)
 

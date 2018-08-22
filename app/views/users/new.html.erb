@@ -1,5 +1,5 @@
 <div class="container border rounded p-5" id="sign-in">
-  <h1>Sign Up</h1>
+  <h2 class="text-center">SIGN UP</h2>
 
   <%= simple_form_for @user do |f| %>
   <% if @user.errors.present? %>
@@ -14,6 +14,8 @@
     <%= f.input :password %>
     <%= f.input :password_confirmation %>
 
-    <%= f.submit "Sign Up", class: "btn btn-primary" %>
+    <%= f.submit "Sign Up", class: "btn btn-primary btn-lg btn-block" %>
   <% end %>
+  <br>
+  <p class="text-center">Already registered? <%= link_to 'Sign in here', new_session_path %></p>
 </div>
