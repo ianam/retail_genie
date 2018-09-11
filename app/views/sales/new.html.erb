@@ -11,19 +11,19 @@
             </h4>
             <div class = "card-text">
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-5">
                         <h5>Month</h5>
                     </div>
-                    <div class="col-8">
+                    <div class="col-7">
                         <h5>Sales ($)</h5>
                     </div>
                 </div>
                 <% @months.each { |month| %>
                 <div class="row" style="height: 40px;">
-                    <div class="col-4 mt-1">
+                    <div class="col-5 mt-1">
                         <p><%= month %></p>
                     </div>
-                    <div class="col-8">
+                    <div class="col-7">
                         <%= f.input :year, as: :hidden, input_html: { value: year, name: 'sales[][year]' } %>
                         <%= f.input :month, as: :hidden, input_html: { value: month, name: 'sales[][month]' } %>
                         <% sale = @sales.where(month: month, year: year).first %>

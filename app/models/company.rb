@@ -63,4 +63,8 @@ class Company < ApplicationRecord
 
         return data
     end
+
+    def sum
+        
+    end
 end

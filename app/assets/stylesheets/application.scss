@@ -51,7 +51,7 @@
  textarea,
  select,
  option {
-   font-size: inherit;
+   font-size: 1.2rem;
  }
 
  .hidden {
@@ -60,6 +60,7 @@
 
   body {
     background-color: #F8F8F8;
+    font-size: 1.2rem;
   }
 
   #sign-in {
@@ -93,3 +94,10 @@
   i.fa.fa-circle.fa-stack-2x {
     color: darkgreen;
   }
+
+  .bold {
+    font-size: 2rem;
+    color: #593196;
+    font-weight: 600;
+  }
+  

@@ -1,22 +1,40 @@
-<h1><%= @company.name %></h1>
-
-<h2><%= @company.industry.name %></h2>
-
-<% if @company.subindustry %>
-    <h3><%= @company.subindustry.name %></h3>
-<% end %>
-
-<h4>
-<% if @company.subregion %>
-    <%= @company.subregion.name%>,
-<% end %>
-<%= @company.region.name %>
-</h4>
-
+<div class="container border rounded p-3" style="background-color: white;">
+    <h1 class="bold"><%= @company.name %></h1>
+    <h2><%= @company.industry.name %></h2>
+    <% if @company.subindustry %>
+        <h3><%= @company.subindustry.name %></h3>
+    <% end %>
+    <h4>
+        <% if @company.subregion %>
+            <%= @company.subregion.name%>,
+        <% end %>
+        <%= @company.region.name %>
+    </h4>
+    <%= link_to 'Add Your Company Data', new_sale_path, class: 'btn btn-success btn-lg'%>
+    <%= link_to 'View Sales Data', sales_path, class: 'btn btn-primary btn-lg'%>
+</div>
 <hr>
-    <%= link_to 'Add Your Company Data', new_sale_path, class: 'btn btn-success'%>
-    <%= link_to 'View Sales Data', sales_path, class: 'btn btn-primary'%>
-<hr>
+<% if @sales.empty? %>
+    <h2><b>INDUSTRY OVERVIEW:</b>
+        <%= @company.industry.name %> in 
+        <% if @company.subregion %>
+            <%= @company.subregion.name%>,
+        <% end %>
+        <%= @company.region.name %>
+    </h2>
+    <div class="card border-danger mb-3">
+        <div class="card-body text-danger">
+            <p class="card-text">To get personalized sales statistics, add your 2016-2017 sales data!</p>
+        </div>
+    </div>
+<% else %>
+    <h2><b>PERSONALIZED INSIGHTS:</b>
+        <%= @company.industry.name %> in 
+        <% if @company.subregion %>
+            <%= @company.subregion.name%>,
+        <% end %>
+        <%= @company.region.name %></h2>
+<% end %>
 
 <% if !@sales.empty? %>
     <div class="row">
@@ -33,23 +51,39 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-7">
+        <div class="col-8">
             <canvas id="dual-chart" data-sales='<%= raw @sales.to_json %>'></canvas>
         </div>
-        <div class="col-3">
+        <div class="col-4">
             <div class="card border-primary mb-3">
                 <div class="card-header">How do your sales compare?</div>
                 <div class="card-body text-dark">
-                    <p class="card-text">Your sales growth over 2016-2017 was #. Other businesses in your region saw # growth over the same period.</p>
+                    <p class="card-text">Your sales growth over 2016-2017 was <b><%= number_to_percentage((@sales17.to_f/@sales16.to_f - 1) * 100) %></b>. Other businesses in your region saw <b><%= number_to_percentage((@total17.to_f/@total16.to_f - 1) * 100) %></b> growth over the same period.</p>
                 </div>
             </div>
-        </div>
-        <div class="col-2">
-            <p>Total sales for 2017: $<%= @total_sales%></p>
-            <p>Average monthly sales for 2017: $<%= @avg_sales%></p>
-            <p>Other stuff: best month, worst month, growth 2016-2017, trend over 2017</p>
+            <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td class="font-weight-bold">Sales in 2017</td>
+                    <td><%= number_to_currency(@sales17, precision: 0) %></td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Sales in 2016</td>
+                    <td><%= number_to_currency(@sales16, precision: 0) %></td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Growth in Sales (2016-17)</td>
+                    <td><%= number_to_percentage((@sales17.to_f/@sales16.to_f - 1) * 100) %></td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Average Monthly Sales</td>
+                    <td>$<%= @avg_sales%></td>
+                </tr>
+            </tbody>
+            </table>
         </div>
     </div>
+    <hr>
 <% end %>
 
 <div class="row">
@@ -72,19 +106,52 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-6">
+    <div class="col-7">
         <h5><%= @company.industry.name %> Sales:</h5>
         <canvas id="single-chart" data-sales='<%= raw @data.to_json %>'></canvas>
     </div>
-     <div class="col-6">
-        <canvas id="doughnut-chart" data-sales='<%= raw @industry_sales.to_json %>'></canvas>
+    <div class="col-5">
+        <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Year</th>
+                <th scope="col">Total Sales</th>
+                <th scope="col">Growth</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2017</td>
+                <td><%= number_to_currency(@total17, precision: 0) %></td>
+                <td><%= number_to_percentage((@total17.to_f/@total16.to_f - 1) * 100) %></td>
+            </tr>
+            <tr>
+                <td>2016</td>
+                <td><%= number_to_currency(@total16, precision: 0) %></td>
+                <td><%= number_to_percentage((@total16.to_f/@total15.to_f - 1) * 100) %></td>
+            </tr>
+        </tbody>
+        </table>
+        <div class="card text-dark bg-outline-primary mb-3">
+            <div class="card-header">Summary Data:</div>
+            <div class="card-body">
+                <h4 class="card-title"><%= @company.industry.name %></h4>
+                <p class="card-text">Overall sales for <%= @company.industry.name %>s in <%= @company.subregion.name%> grew <b><%= number_to_percentage((@total17.to_f/@total16.to_f - 1) * 100) %></b> over 2016-2017!</p>
+            </div>
+        </div>
     </div>
 </div>
-
-<% if @sales.empty? %>
-    <div class="card border-danger mb-3">
-    <div class="card-header">Add Your Data!</div>
-    <div class="card-body text-danger">
-        <p class="card-text">To get personalized sales statistics, add your 2016-2017 sales data!</p>
+<div class="row">
+    <div class="col-8">
+        <h5>How other industries in your region compare:</h5>
+        <canvas id="doughnut-chart" data-sales='<%= raw @industry_sales.to_json %>'></canvas>
     </div>
-<% end %>
+    <div class="col-4">
+        <div class="card text-dark bg-border-primary mb-3 mt-5">
+            <div class="card-header">Industry Share:</div>
+            <div class="card-body">
+                <p class="card-text">Overall sales for <%= @company.industry.name %>s in <%= @company.subregion.name%> account for <b><%= number_to_percentage((@total17.to_f/@sum.to_f) * 100) %></b> of total retail sales in Vancouver in 2017.</p>
+            </div>
+        </div>
+    </div>
+</div>
