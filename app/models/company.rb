@@ -36,10 +36,10 @@ class Company < ApplicationRecord
     end
 
     # Search method for company-specific sales data
-    def self.sales(company, year)
+    def self.sales(company)
         sale = {}
 
-        Sale.where("company_id = ? AND year = ?", company.id, year)
+        Sale.where("company_id = ?", company.id)
             .each {|item| sale["#{item.month}, #{item.year}"] = item.value}
 
         return sale
@@ -62,5 +62,9 @@ class Company < ApplicationRecord
         end
 
         return data
+    end
+
+    def sum
+        
     end
 end

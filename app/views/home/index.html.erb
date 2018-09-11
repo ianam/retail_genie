@@ -1,31 +1,23 @@
-<h1>Retail Genie</h1>
-<h2>Sales Analyzer</h2>
-
-<% if current_user.present? %>
-    <p>Welcome, <%= @user.full_name %>!</p>
-    <%= link_to "Manage Your Account", user_path(current_user), class: "btn btn-primary" %>
+<div class="jumbotron">
+  <%= fa_stacked_icon "line-chart inverse", base: "circle", class: "fa-4x" %>
+  <h1 class="display-4">Retail Genie</h1>
+  <p class="lead">Your Personalized Sales Analysis Tool</p>
+  <hr class="my-4">
+  <p>Retail is a tricky business to predict. The ups-and-downs of the business cycle are affected by any number of factors -- the exchange rate, tourism, even weather. In all this noise of information, it's often hard to tell how well the business is doing on it's own merits. Fear not, <b>Retail Genie</b> is here!</p>
+  <p>Using data from <b>Statistics Canada</b> and your own sales, <b>Retail Genie</b> gives you immediate feedback on how your business compares to competitors in your city or region.
+  </p>
+  <% if !current_user.present? %>
+    <%= link_to "Sign Up", new_user_path, class: "btn btn-primary btn-lg" %>
+  <% else %>
+    <div class="card mb-3 w-50">
+        <div class="card-body">
+            <h3>Welcome back, <%= @user.first_name %>!</h3>
+        </div>
+    </div>
+    <%= link_to "Manage Your Account", user_path(current_user), class: "btn btn-primary btn-lg mr-2" %>
+    <% if current_user.company %>
+        <%= link_to 'Your Company Dashboard', company_path(current_user.company), class: "btn btn-primary btn-lg" %>
+    <% end %>
     <hr>
-<% end %>
-
-<h3>How is your business?</h3>
-
-<p>Retail is a tricky business to predict. The ups-and-downs of the business cycle are affected by any number of factors. Canadian retailers are affected by variables as broad as the overall strength of the Canadian economy, to as specific as weather patterns. In all this noise of information, it's often hard to tell how well the business is doing on it's own! Fear not, <b>Retail Genie</b> is here!
-<br>
-
-<div class="icons">
-    <%= fa_stacked_icon "dollar inverse", base: "circle", class: "fa-5x" %>
-    <%= fa_stacked_icon "sun-o inverse", base: "circle", class: "fa-5x" %>
-    <%= fa_stacked_icon "suitcase inverse", base: "circle", class: "fa-5x" %>
+  <% end %>
 </div>
-
-<p><b>Retail Genie</b> is a new tool for retail businesses to guage their performance in the Canadian retail industry market! Using statistics from Statistics Canada, <b>Retail Genie</b> provides analysis of how your business compares to others within your region, and across time. 
-
-<h3>Let the Genie forecast your future!</h3>
-
-<b>Retail Genie</b> analysis tool allows you to mark sales trends...
-
-<br>
-<%= link_to "Explore the Data", data_path, class: "btn btn-success" %>
-<% if !current_user.present? %>
-    <%= link_to "Sign Up", new_user_path, class: "btn btn-primary" %>
-<% end %>

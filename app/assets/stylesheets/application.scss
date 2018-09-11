@@ -17,11 +17,41 @@
  @import "pulse/bootswatch";
  @import "font-awesome";
 
+ p {
+   font-size: 1.2rem;
+ }
+
+ .display-4 {
+   font-weight: 900;
+   -webkit-text-stroke: 1px black;
+   color: #593196;
+ }
+
+ .lead {
+   font-size: 1.8rem;
+   color: #593196;
+   font-weight: 600;
+ }
+
+ .navbar-expand-lg .navbar-collapse {
+   font-size: 1rem;
+   font-weight: 500;
+ }
+
+ .jumbotron .card-body h3 {
+   margin: 0;
+   color: green;
+ }
+
+ .jumbotron .card {
+   background-color: rgba(0, 100, 0, 0.1);
+ }
+
  input,
  textarea,
  select,
  option {
-   font-size: inherit;
+   font-size: 1.2rem;
  }
 
  .hidden {
@@ -30,6 +60,7 @@
 
   body {
     background-color: #F8F8F8;
+    font-size: 1.2rem;
   }
 
   #sign-in {
@@ -51,3 +82,22 @@
     padding-left:10px;
     padding-right:10px;
   }
+
+  .container {
+    max-width: 1400px;
+  }
+
+  .chart-icon {
+    display: flex;
+  }
+  
+  i.fa.fa-circle.fa-stack-2x {
+    color: darkgreen;
+  }
+
+  .bold {
+    font-size: 2rem;
+    color: #593196;
+    font-weight: 600;
+  }
+  

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const industryData = {
-        labels: ["Motor Vehicle & Parts", "Furniture & Home Furnishings", "Electronics & Applicances", "Building Materials & Garden Equipment", "Food & Beverage", "Health & Personal Care", "Gasoline Stations", "Clothing & Accessories", "Sport, Hobby, Book & Music", "General Merchandise", "Other Retailer"],
+        labels: ["Motor Vehicle & Parts", "Furniture & Home Furnishings", "Electronics & Applicances", "Building Materials & Garden Equipment", "Food & Beverage", "Health & Personal Care", "Gasoline Stations", "Clothing & Accessories", "Sport, Hobby, Book & Music", "General Merchandise"],
         datasets: [{
             label: 'Industry Data',
             data: data.map(d => d.sales),

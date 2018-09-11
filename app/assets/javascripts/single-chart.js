@@ -67,8 +67,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
                 datasets: [{
                     label: 'Value',
-                    data: dataYear.map(d => d.value)
-                }]
+                    data: dataYear.map(d => d.value),
+                    backgroundColor: 'rgba(114, 17, 166, 0.2)', 
+                    borderColor: 'rgba(114, 17, 166, 1)',
+                    borderWidth: 1
+                }],
             }
         });
     };

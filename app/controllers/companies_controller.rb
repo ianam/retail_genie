@@ -30,13 +30,25 @@ class CompaniesController < ApplicationController
         @company = Company.find params[:id]
 
         @data = Company.data(@company)
-        @sales = Company.sales(@company, 2017)
+        @sales = Company.sales(@company)
 
         @industry_sales = Company.industry_sales(@company, 2017)
+        @sum = @industry_sales.values.inject { |a, b| a + b }
+        
+        @industry_sales16 = Company.industry_sales(@company, 2016)
+        @industry_sales15 = Company.industry_sales(@company, 2015)
+
+        @total17 = @industry_sales.values_at(@company.industry_id)[0]
+        @total16 = @industry_sales16.values_at(@company.industry_id)[0]
+        @total15 = @industry_sales15.values_at(@company.industry_id)[0]
 
         if !@sales.empty?
             @total_sales = @sales.values.sum
             @avg_sales = @total_sales/(@sales.values.count)
+                if @sales.count == 24
+                    @sales16 = @sales.values[0..11].sum
+                    @sales17 = @sales.values[12..24].sum
+                end
         end
     end
 
