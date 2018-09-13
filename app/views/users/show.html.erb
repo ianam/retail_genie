@@ -17,8 +17,8 @@
         <%= @company.region.name %>
         </p>
 
-        <%= link_to 'Edit Company', new_sale_path, class: 'btn btn-outline-primary btn-lg' %>
-        <%= link_to 'Delete Company', sales_path, class: 'btn btn-outline-primary btn-lg' %>
+        <%= link_to 'Edit Company', edit_company_path, class: 'btn btn-outline-primary' %>
+        <%= link_to 'Delete Company', sales_path, class: 'btn btn-outline-primary' %>
 </div>
 <% else %>
     <p>Hi, <%= @user.first_name %>! In order to get access to personalized data resources, you'll need to register your company. To register your company, click on the button below.</p>
