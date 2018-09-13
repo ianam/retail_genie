@@ -56,6 +56,29 @@ class CompaniesController < ApplicationController
         @companies = Company.order(created_at: :desc)
     end
 
+    def edit
+        @company = current_user.company
+        @industry = Industry.all
+        @subindustry = Subindustry.all 
+        @region = Region.all
+    end
+
+    def update
+        @company = current_user.company
+
+        if @company.update(company_params)
+            redirect_to company_path(@company)
+        else
+            render :edit
+        end
+    end
+
+    def destroy
+        @company = Company.find params[:id]
+        @company.destroy
+        redirect_to home_path
+    end
+
     private
     def company_params
         params.require(:company).permit(:name, :region_id, :subregion_id, :industry_id, :subindustry_id, :address, :city)

@@ -10,8 +10,8 @@
         <% end %>
         <%= @company.region.name %>
     </h4>
-    <%= link_to 'Add Your Company Data', new_sale_path, class: 'btn btn-success btn-lg'%>
-    <%= link_to 'View Sales Data', sales_path, class: 'btn btn-primary btn-lg'%>
+    <%= link_to 'Add Your Company Data', new_sale_path, class: 'btn btn-success'%>
+    <%= link_to 'View Sales Data', sales_path, class: 'btn btn-primary'%>
 </div>
 <hr>
 <% if @sales.empty? %>
@@ -28,12 +28,12 @@
         </div>
     </div>
 <% else %>
-    <h2><b>PERSONALIZED INSIGHTS:</b>
+    <h3><b>PERSONALIZED INSIGHTS:</b>
         <%= @company.industry.name %> in 
         <% if @company.subregion %>
             <%= @company.subregion.name%>,
         <% end %>
-        <%= @company.region.name %></h2>
+        <%= @company.region.name %></h3>
 <% end %>
 
 <% if !@sales.empty? %>
@@ -136,7 +136,7 @@
             <div class="card-header">Summary Data:</div>
             <div class="card-body">
                 <h4 class="card-title"><%= @company.industry.name %></h4>
-                <p class="card-text">Overall sales for <%= @company.industry.name %>s in <%= @company.subregion.name%> grew <b><%= number_to_percentage((@total17.to_f/@total16.to_f - 1) * 100) %></b> over 2016-2017!</p>
+                <p class="card-text">Overall sales for <%= @company.industry.name %>s in <%= @company.region.name %> grew <b><%= number_to_percentage((@total17.to_f/@total16.to_f - 1) * 100) %></b> over 2016-2017!</p>
             </div>
         </div>
     </div>
@@ -150,7 +150,7 @@
         <div class="card text-dark bg-border-primary mb-3 mt-5">
             <div class="card-header">Industry Share:</div>
             <div class="card-body">
-                <p class="card-text">Overall sales for <%= @company.industry.name %>s in <%= @company.subregion.name%> account for <b><%= number_to_percentage((@total17.to_f/@sum.to_f) * 100) %></b> of total retail sales in Vancouver in 2017.</p>
+                <p class="card-text">Overall sales for <%= @company.industry.name %>s in <%= @company.region.name%> account for <b><%= number_to_percentage((@total17.to_f/@sum.to_f) * 100) %></b> of total retail sales in Vancouver in 2017.</p>
             </div>
         </div>
     </div>

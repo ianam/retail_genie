@@ -7,16 +7,16 @@
   <p>Using data from <b>Statistics Canada</b> and your own sales, <b>Retail Genie</b> gives you immediate feedback on how your business compares to competitors in your city or region.
   </p>
   <% if !current_user.present? %>
-    <%= link_to "Sign Up", new_user_path, class: "btn btn-primary btn-lg" %>
+    <%= link_to "Sign Up", new_user_path, class: "btn btn-primary" %>
   <% else %>
     <div class="card mb-3 w-50">
         <div class="card-body">
-            <h3>Welcome back, <%= @user.first_name %>!</h3>
+            <h4>Welcome back, <%= @user.first_name %>!</h4>
         </div>
     </div>
-    <%= link_to "Manage Your Account", user_path(current_user), class: "btn btn-primary btn-lg mr-2" %>
+    <%= link_to "Manage Your Account", user_path(current_user), class: "btn btn-primary mr-2" %>
     <% if current_user.company %>
-        <%= link_to 'Your Company Dashboard', company_path(current_user.company), class: "btn btn-primary btn-lg" %>
+        <%= link_to 'Your Company Dashboard', company_path(current_user.company), class: "btn btn-primary" %>
     <% end %>
     <hr>
   <% end %>

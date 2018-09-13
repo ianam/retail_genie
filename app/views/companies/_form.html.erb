@@ -1,0 +1,27 @@
+<%= simple_form_for(@company) do |f| %>
+    <% if @company.errors.present? %>
+        <p> 
+            <%= @company.errors.full_messages.join(', ') %>
+        </p>
+    <% end %>
+
+    <%= f.input :name, label: 'Company Name' %>
+    <%= f.input :address, label: 'Address', placeholder: 'E.g. 123 Electric Avenue' %>
+
+    <div class="row">
+        <div class="col-6">
+        <%= f.input :city, label: 'City' %>
+        </div>
+        <div class="col-6">
+        <%= f.input :region_id, label: 'Province/Territory', collection: @region, input_html: { class: 'chosen-select', id: 'region-selector' }  %>
+        </div>
+    </div>
+
+    <h2>Select your Industry:</h2>
+
+    <%= f.input :industry_id, label: 'Industry', collection: @industry, input_html: { class: 'chosen-select', id: 'industry-selector' } %>
+    <%= f.input :subindustry_id, label: 'Sub-Industry (if applicable)', collection: @subindustry, wrapper_html: { class: 'chosen-select hidden', id: 'subindustry-selector' } %>
+
+    <%= f.submit class: 'btn btn-primary'%>
+
+<% end %>
