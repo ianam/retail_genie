@@ -46,6 +46,7 @@ gem 'simple_form'
 gem 'friendly_id'
 gem 'd3-rails'
 gem 'font-awesome-rails'
+gem 'rails_12factor'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
