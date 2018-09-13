@@ -10,8 +10,8 @@
         <% end %>
         <%= @company.region.name %>
     </h4>
-    <%= link_to 'Add Your Company Data', new_sale_path, class: 'btn btn-success btn-lg'%>
-    <%= link_to 'View Sales Data', sales_path, class: 'btn btn-primary btn-lg'%>
+    <%= link_to 'Add Your Company Data', new_sale_path, class: 'btn btn-success'%>
+    <%= link_to 'View Sales Data', sales_path, class: 'btn btn-primary'%>
 </div>
 <hr>
 <% if @sales.empty? %>
@@ -28,12 +28,12 @@
         </div>
     </div>
 <% else %>
-    <h2><b>PERSONALIZED INSIGHTS:</b>
+    <h3><b>PERSONALIZED INSIGHTS:</b>
         <%= @company.industry.name %> in 
         <% if @company.subregion %>
             <%= @company.subregion.name%>,
         <% end %>
-        <%= @company.region.name %></h2>
+        <%= @company.region.name %></h3>
 <% end %>
 
 <% if !@sales.empty? %>

@@ -73,6 +73,12 @@ class CompaniesController < ApplicationController
         end
     end
 
+    def destroy
+        @company = Company.find params[:id]
+        @company.destroy
+        redirect_to home_path
+    end
+
     private
     def company_params
         params.require(:company).permit(:name, :region_id, :subregion_id, :industry_id, :subindustry_id, :address, :city)
